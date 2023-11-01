@@ -1,6 +1,7 @@
 package com.example.mmogames
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -8,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-class MyService(var gameAdapter: GameAdapter) {
+class MyService() {
     val BASE_URL: String = "https://www.mmobomb.com/api1/"
 
     private val retrofit: Retrofit = Retrofit.Builder()
@@ -25,20 +26,24 @@ class MyService(var gameAdapter: GameAdapter) {
         }
     }
 
-    fun getGamesList() {
-        var callback: Callback<List<GameDto>> = object : Callback<List<GameDto>> {
+    fun getGamesList(liveData: MutableLiveData<LoadingStatus>) {
+        val callback: Callback<List<GameDto>> = object : Callback<List<GameDto>> {
 
             override fun onResponse(call: Call<List<GameDto>>, response: Response<List<GameDto>>) {
                 if (response.isSuccessful) {
-                    gameAdapter.gamesArrayList = response.body() ?: ArrayList<GameDto>()
-                    gameAdapter.notifyDataSetChanged()
+                    Log.d("onResponse", "Response successful")
+                    liveData.setValue(LoadingStatus.Success(response.body()))
+                    Log.i("onresponse", "data "+liveData.value.toString())
                 } else {
+                    liveData.setValue(LoadingStatus.Error("Response unsuccessful"))
                     Log.d("onResponse", "Response unsuccessful")
                 }
             }
 
             override fun onFailure(call: Call<List<GameDto>>, t: Throwable) {
+                liveData.setValue(LoadingStatus.Error(t.message.toString()))
                 Log.e("this onFailure", "No reponse was received", t)
+
             }
         }
         requestGamesList(callback)
