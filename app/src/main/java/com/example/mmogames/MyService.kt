@@ -31,9 +31,7 @@ class MyService() {
 
             override fun onResponse(call: Call<List<GameDto>>, response: Response<List<GameDto>>) {
                 if (response.isSuccessful) {
-                    Log.d("onResponse", "Response successful")
                     liveData.setValue(LoadingStatus.Success(response.body()))
-                    Log.i("onresponse", "data "+liveData.value.toString())
                 } else {
                     liveData.setValue(LoadingStatus.Error("Response unsuccessful"))
                     Log.d("onResponse", "Response unsuccessful")

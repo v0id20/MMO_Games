@@ -3,9 +3,11 @@ package com.example.mmogames
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.squareup.picasso.Picasso
 
 class GameAdapter(
     var gamesArrayList: List<GameDto>,
@@ -13,8 +15,10 @@ class GameAdapter(
 ) : Adapter<GameAdapter.GameViewHolder>() {
 
     class GameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val imageView: ImageView = itemView.findViewById(R.id.pic)
         val titleTV: TextView = itemView.findViewById(R.id.title_tv)
         val platformTV: TextView = itemView.findViewById(R.id.platform_tv)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
@@ -36,6 +40,11 @@ class GameAdapter(
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
         holder.titleTV.text = gamesArrayList.get(position).title
         holder.platformTV.text = gamesArrayList.get(position).genre
+        Picasso.get()
+            .load(gamesArrayList.get(position).thumbnail)
+            .resize(0, 140)
+            .centerCrop()
+            .into(holder.imageView)
     }
 
 

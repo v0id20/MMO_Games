@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 val GAME_TITLE_EXTRA: String = "Title"
+val GAME_IMAGE_EXTRA = "Image address"
 
 class MainActivity : AppCompatActivity(), GameAdapter.OnGameItemClickListener {
 
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        progressIndicator= findViewById(R.id.progress_circular)
+        progressIndicator = findViewById(R.id.progress_circular)
         errorTV = findViewById(R.id.error_tv)
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameItemClickListener {
     override fun onGameItemClick(game: GameDto) {
         val i: Intent = Intent(this, GameInfoActivity::class.java)
         i.putExtra(GAME_TITLE_EXTRA, game.title)
+        i.putExtra(GAME_IMAGE_EXTRA, game.thumbnail)
         startActivity(i)
     }
 

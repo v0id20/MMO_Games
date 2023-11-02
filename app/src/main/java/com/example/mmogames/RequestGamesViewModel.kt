@@ -4,8 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class RequestGamesViewModel: ViewModel() {
-    var liveData2: MutableLiveData<LoadingStatus> = MutableLiveData<LoadingStatus>(LoadingStatus.Loading())
+class RequestGamesViewModel : ViewModel() {
+    var liveData2: MutableLiveData<LoadingStatus> =
+        MutableLiveData<LoadingStatus>(LoadingStatus.Loading())
     var myService: MyService = MyService()
     fun requestGamesList() {
         myService.getGamesList(liveData2)
@@ -14,12 +15,12 @@ class RequestGamesViewModel: ViewModel() {
 }
 
 sealed class LoadingStatus() {
-    class Loading(): LoadingStatus() {
+    class Loading() : LoadingStatus() {
     }
 
-    class Error(val errorMessage: String): LoadingStatus() {
+    class Error(val errorMessage: String) : LoadingStatus() {
     }
 
-    class Success(val dataList: List<GameDto>?): LoadingStatus() {
+    class Success(val dataList: List<GameDto>?) : LoadingStatus() {
     }
 }
