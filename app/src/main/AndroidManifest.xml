@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GameInfoActivity"
+            android:name=".gameinfo.GameInfoActivity"
             android:exported="true">
         </activity>
     </application>

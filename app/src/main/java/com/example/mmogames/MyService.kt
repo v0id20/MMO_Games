@@ -17,13 +17,24 @@ class MyService() {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    private val retrofit2: Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GameInfoConerterFactory())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
     private val myEndpoint: ApiEndpoint = retrofit.create()
 
+    private val myEndpoint2: ApiEndpoint = retrofit2.create()
+
     private fun requestGamesList(callback: Callback<List<GameDto>>) {
-        val call: Call<List<GameDto>> = myEndpoint.getGames()
-        if (call != null) {
-            call.enqueue(callback)
-        }
+        val call: Call<List<GameDto>>? = myEndpoint.getGames()
+        call?.enqueue(callback)
+    }
+
+    private fun requestGameInfo(callback: Callback<GameDto>, gameId: Int) {
+        val call: Call<GameDto>? = myEndpoint2.getGameInfo(gameId)
+        call?.enqueue(callback)
     }
 
     fun getGamesList(liveData: MutableLiveData<LoadingStatus>) {
@@ -45,6 +56,26 @@ class MyService() {
             }
         }
         requestGamesList(callback)
+    }
+
+    fun getGameInfo(liveData: MutableLiveData<GameDto>, gameId: Int) {
+        val callback: Callback<GameDto> = object : Callback<GameDto> {
+            override fun onResponse(call: Call<GameDto>, response: Response<GameDto>) {
+                if (response.isSuccessful) {
+                    Log.i("Request game info", "success")
+                    liveData.value = response.body()
+                } else {
+
+                    Log.i("Request game info", "failure")
+                }
+            }
+
+            override fun onFailure(call: Call<GameDto>, t: Throwable) {
+                Log.i("Request game info", "failure", t)
+            }
+
+        }
+        requestGameInfo(callback, gameId)
     }
 
 

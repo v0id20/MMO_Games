@@ -7,12 +7,20 @@ class GameDto(
     val genre: String,
     val short_description: String,
     val game_url: String,
-    val platfrom: String,
+    val platform: String,
     val publisher: String,
     val developer: String,
     val release_date: String,
-    val profile_url: String
+    val profile_url: String,
+    var minimum_system_requirements: MinimumSystemRequirements?,
+    var screenshotArray: ArrayList<String>
 ) {
+}
 
-
+class MinimumSystemRequirements(
+    val os: String,
+    val processor: String,
+    val memory: String,
+    val storage: String
+) {
 }

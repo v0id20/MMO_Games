@@ -10,6 +10,7 @@
         android:id="@+id/title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,6 +20,7 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_tv" />
 
@@ -26,16 +28,64 @@
         android:id="@+id/release_date_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image"
-        tools:text="12 Dec 2012" />
+        tools:text="" />
+
+    <TextView
+        android:id="@+id/platform_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toRightOf="@id/release_date_tv"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        tools:text="wondows" />
+
+    <TextView
+        android:id="@+id/publisher_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/release_date_tv"
+        tools:text="publisher" />
+
+    <TextView
+        android:id="@+id/issuer_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+
+        app:layout_constraintLeft_toRightOf="@id/publisher_tv"
+        app:layout_constraintTop_toTopOf="@id/publisher_tv"
+        tools:text="issuer" />
 
     <TextView
         android:id="@+id/description_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/release_date_tv"
+        app:layout_constraintTop_toBottomOf="@id/publisher_tv"
         tools:text="description of the game" />
+
+    <TextView
+        android:id="@+id/processor_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description_tv"
+        tools:text = "system requirements"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/processor_tv"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

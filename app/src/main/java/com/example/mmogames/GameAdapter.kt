@@ -18,7 +18,6 @@ class GameAdapter(
         val imageView: ImageView = itemView.findViewById(R.id.pic)
         val titleTV: TextView = itemView.findViewById(R.id.title_tv)
         val platformTV: TextView = itemView.findViewById(R.id.platform_tv)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {

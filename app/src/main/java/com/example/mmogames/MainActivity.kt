@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mmogames.gameinfo.GameInfoActivity
 
+val GAME_ID_EXTRA: String = "Game ID"
 val GAME_TITLE_EXTRA: String = "Title"
 val GAME_IMAGE_EXTRA = "Image address"
 
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameItemClickListener {
     private lateinit var progressIndicator: ProgressBar
     private lateinit var errorTV: TextView
     private val gameAdapter: GameAdapter = GameAdapter(ArrayList<GameDto>(), this)
+    private val viewModel: RequestGamesViewModel = RequestGamesViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameItemClickListener {
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
         recyclerView.adapter = gameAdapter
-        val viewModel: RequestGamesViewModel = RequestGamesViewModel()
+
 
         viewModel.liveData2.observe(this, object : Observer<LoadingStatus> {
             override fun onChanged(t: LoadingStatus) {
@@ -48,6 +51,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameItemClickListener {
 
     override fun onGameItemClick(game: GameDto) {
         val i: Intent = Intent(this, GameInfoActivity::class.java)
+        i.putExtra(GAME_ID_EXTRA, game.id)
         i.putExtra(GAME_TITLE_EXTRA, game.title)
         i.putExtra(GAME_IMAGE_EXTRA, game.thumbnail)
         startActivity(i)
@@ -74,7 +78,6 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameItemClickListener {
         progressIndicator.visibility = View.INVISIBLE
         errorTV.visibility = View.VISIBLE
         errorTV.text = "Some error"
-
     }
 
 }
