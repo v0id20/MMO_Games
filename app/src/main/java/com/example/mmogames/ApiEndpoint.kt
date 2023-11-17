@@ -10,4 +10,7 @@ interface ApiEndpoint {
 
     @GET("game")
     fun getGameInfo(@Query("id") id: Int): Call<GameDto>?
+
+    @GET("games")
+    fun getFiltered(@Query("category") vararg tag: String ): Call<List<GameDto>>?
 }

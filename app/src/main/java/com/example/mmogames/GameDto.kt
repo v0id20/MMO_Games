@@ -19,6 +19,7 @@ class GameDto(
 
 class MinimumSystemRequirements(
     val os: String,
+    val graphics: String,
     val processor: String,
     val memory: String,
     val storage: String

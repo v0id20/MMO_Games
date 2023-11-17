@@ -13,7 +13,6 @@ class GameScreenshotAdapter(var screenshotArray: ArrayList<String>?) :
 
     class GameScreenshotViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.image_view)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameScreenshotViewHolder {

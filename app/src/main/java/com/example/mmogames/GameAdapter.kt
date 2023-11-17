@@ -41,8 +41,6 @@ class GameAdapter(
         holder.platformTV.text = gamesArrayList.get(position).genre
         Picasso.get()
             .load(gamesArrayList.get(position).thumbnail)
-            .resize(0, 140)
-            .centerCrop()
             .into(holder.imageView)
     }
 

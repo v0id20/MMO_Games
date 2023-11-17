@@ -37,22 +37,26 @@ class MyService() {
         call?.enqueue(callback)
     }
 
-    fun getGamesList(liveData: MutableLiveData<LoadingStatus>) {
+    private fun getFilteredGamesList(callback: Callback<List<GameDto>>, vararg tag: String) {
+        val call: Call<List<GameDto>>? = myEndpoint.getFiltered(*tag)
+        call?.enqueue(callback)
+    }
+
+    fun getGamesList(liveData: MutableLiveData<LoadingStatus<List<GameDto>>>) {
         val callback: Callback<List<GameDto>> = object : Callback<List<GameDto>> {
 
             override fun onResponse(call: Call<List<GameDto>>, response: Response<List<GameDto>>) {
                 if (response.isSuccessful) {
                     liveData.setValue(LoadingStatus.Success(response.body()))
                 } else {
-                    liveData.setValue(LoadingStatus.Error("Response unsuccessful"))
-                    Log.d("onResponse", "Response unsuccessful")
+                    liveData.setValue(LoadingStatus.Error<Nothing>("Response unsuccessful"))
+                    Log.i("onResponse", "Response unsuccessful")
                 }
             }
 
             override fun onFailure(call: Call<List<GameDto>>, t: Throwable) {
-                liveData.setValue(LoadingStatus.Error(t.message.toString()))
-                Log.e("this onFailure", "No reponse was received", t)
-
+                liveData.setValue(LoadingStatus.Error<Nothing>(t.message.toString()))
+                Log.e("this onFailure", "No response was received", t)
             }
         }
         requestGamesList(callback)
@@ -61,9 +65,18 @@ class MyService() {
     fun getGameInfo(liveData: MutableLiveData<GameDto>, gameId: Int) {
         val callback: Callback<GameDto> = object : Callback<GameDto> {
             override fun onResponse(call: Call<GameDto>, response: Response<GameDto>) {
+
                 if (response.isSuccessful) {
                     Log.i("Request game info", "success")
                     liveData.value = response.body()
+                    Log.i(
+                        "onResponse, checking systerm requirements ",
+                        response.body()?.minimum_system_requirements.toString()
+                    )
+                    Log.i(
+                        "onResponse, checking systerm requirements, graphics ",
+                        response.body()?.minimum_system_requirements?.graphics.toString()
+                    )
                 } else {
 
                     Log.i("Request game info", "failure")
@@ -73,10 +86,45 @@ class MyService() {
             override fun onFailure(call: Call<GameDto>, t: Throwable) {
                 Log.i("Request game info", "failure", t)
             }
-
         }
         requestGameInfo(callback, gameId)
     }
 
+    fun filterGamesList(
+        liveData: MutableLiveData<LoadingStatus<List<GameDto>>>,
+        vararg tag: String
+    ) {
+        var callback: Callback<List<GameDto>> = object : Callback<List<GameDto>> {
+            override fun onResponse(call: Call<List<GameDto>>, response: Response<List<GameDto>>) {
+                val fullUrl = response.raw().request().url().toString()
+                Log.i("onresponse", "Full URL: $fullUrl")
 
+                if (response.isSuccessful) {
+                    liveData.setValue(LoadingStatus.Success(response.body()))
+                    Log.i("onResponse", "success")
+                } else {
+                    liveData.setValue(LoadingStatus.Error<Nothing>("Response unsuccessful"))
+                    Log.i("onResponse", "Response unsuccessful")
+                }
+            }
+
+            override fun onFailure(call: Call<List<GameDto>>, t: Throwable) {
+                liveData.setValue(LoadingStatus.Error<Nothing>("Response unsuccessful"))
+                Log.e("this onFailure", "No response was received", t)
+            }
+        }
+
+        getFilteredGamesList(callback, *tag)
+    }
+}
+
+sealed class LoadingStatus<out T>() {
+    class Loading<T>() : LoadingStatus<Nothing>() {
+    }
+
+    class Error<T>(val errorMessage: String) : LoadingStatus<Nothing>() {
+    }
+
+    class Success<T>(val dataList: T?) : LoadingStatus<T>() {
+    }
 }

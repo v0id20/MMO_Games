@@ -1,3 +1,43 @@
 <resources>
     <string name="app_name">MMO Games</string>
+    <string name = "error_try_again">An error occurred, please try again</string>
+    <string name="mmorpg">MMORPG</string>
+    <string name="category_shooter">Shooter</string>
+    <string name="category_action">Action</string>
+    <string name="category_strategy">Strategy</string>
+    <string name="category_battle_royale">Battle Royale</string>
+    <string name="category_moba">Moba</string>
+    <string name="category_card">Card</string>
+    <string name="category_racing">Racing</string>
+    <string name="category_sports">Sports</string>
+    <string name="category_social">Social</string>
+    <string name="category_fighting">Fighting</string>
+    <string name="category_mmofps">MMOFPS</string>
+    <string name="category_sandbox">Sandbox</string>
+    <string name="category_open_world">Open World</string>
+    <string name="category_survival">Survival</string>
+    <string name="category_action_rpg">Action RPG</string>
+    <string name="category_mmorts">MMORTS</string>
+    <string name="category_pixel">Pixel</string>
+    <string name="category_voxel">Voxel</string>
+    <string name="category_mmotps">MMOTPS</string>
+    <string name="category_zombie">Zombie</string>
+    <string name="category_tank">Tank</string>
+    <string name="category_space">Space</string>
+    <string name="category_sailing">Sailing</string>
+    <string name="category_superhero">Superhero</string>
+    <string name="category_permadeath">Permadeath</string>
+    <string name="category_martial_arts">Martial Arts</string>
+    <string name="category_flight">Flight</string>
+    <string name="category_low_spec">Low Spec</string>
+
+    <string name="theme_anime">Anime</string>
+    <string name="theme_scifi">Sci-Fi</string>
+    <string name="category">Category</string>
+    <string name="system_requirements">System requirements</string>
+    <string name="os">OS:</string>
+    <string name="processor">Processor:</string>
+    <string name="memory">Memory:</string>
+    <string name="graphics">Graphics:</string>
+    <string name="storage">Storage:</string>
 </resources>

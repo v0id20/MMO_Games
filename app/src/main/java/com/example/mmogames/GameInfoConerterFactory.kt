@@ -14,7 +14,7 @@ class GameInfoConerterFactory : Converter.Factory() {
         type: Type?,
         annotations: Array<Annotation?>?,
         retrofit: Retrofit
-    ): Converter<ResponseBody, *>? {
+    ): Converter<ResponseBody, GameDto?>? {
         Log.i("responseBodyConverter", "zashel")
         return try {
             // Use TypeToken of Gson to get type literal for the parameterized type represented Data<T>

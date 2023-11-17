@@ -3,12 +3,16 @@ package com.example.mmogames.gameinfo
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import com.example.mmogames.GAME_ID_EXTRA
 import com.example.mmogames.GAME_IMAGE_EXTRA
 import com.example.mmogames.GAME_TITLE_EXTRA
@@ -42,6 +46,8 @@ class GameInfoActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = gameScreenshotAdapter
+        val snapHelper: SnapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(recyclerView)
     }
 
     private fun updateViews(game: GameDto?) {
@@ -62,6 +68,29 @@ class GameInfoActivity : AppCompatActivity() {
                 gameScreenshotAdapter.screenshotArray = game.screenshotArray
                 gameScreenshotAdapter.notifyDataSetChanged()
             }
+            if (game.minimum_system_requirements != null) {
+                Log.i("game requirements not null ", game.minimum_system_requirements.toString())
+                Log.i(
+                    "game requirements not null ",
+                    game.minimum_system_requirements?.graphics.toString()
+                )
+                val requirementsLayout: ConstraintLayout = findViewById(R.id.requirements_layout)
+                requirementsLayout.visibility = View.VISIBLE
+                val processorTV: TextView = findViewById(R.id.processor_tv)
+                processorTV.text = game.minimum_system_requirements?.processor
+                val graphicsTV: TextView = findViewById(R.id.graphics_tv)
+                graphicsTV.text = game.minimum_system_requirements?.graphics
+                val memoryTV: TextView = findViewById(R.id.memory_tv)
+                memoryTV.text = game.minimum_system_requirements?.memory
+                val storageTV: TextView = findViewById(R.id.storage_tv)
+                storageTV.text = game.minimum_system_requirements?.storage
+                val osTV: TextView = findViewById(R.id.os_tv)
+                osTV.text = game.minimum_system_requirements?.os
+            }
         }
+    }
+
+    private fun setLoadingState() {
+
     }
 }

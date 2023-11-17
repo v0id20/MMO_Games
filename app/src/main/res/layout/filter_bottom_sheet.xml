@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/category_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/category"
+        android:padding="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/mmorpg"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mmorpg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/category_tv" />
+
+    <Button
+        android:id="@+id/action"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/category_action"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mmorpg" />
+
+
+    <Button
+        android:id="@+id/action_rpg"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/action"
+        app:layout_constraintLeft_toRightOf="@id/action"
+        android:text="@string/category_action_rpg"
+        />
+    <Button
+        android:id="@+id/moba"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/mmorpg"
+        app:layout_constraintLeft_toRightOf="@id/mmorpg"
+        android:text="@string/category_moba"
+        />
+
+    <Button
+        android:id="@+id/shooter"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/action"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/category_shooter"
+        />
+
+
+
+    <Button
+        android:id="@+id/mmorts"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/strategy"
+        app:layout_constraintLeft_toRightOf="@id/strategy"
+        android:text="@string/category_mmorts"
+        />
+
+    <Button
+        android:id="@+id/survival"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/shooter"
+        app:layout_constraintLeft_toRightOf="@id/shooter"
+        android:text="@string/category_survival"
+        />
+
+    <Button
+        android:id="@+id/battle_royale"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/shooter"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/category_battle_royale"
+        />
+    <Button
+        android:id="@+id/card"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/battle_royale"
+        app:layout_constraintLeft_toRightOf="@id/battle_royale"
+        android:text="@string/category_card"
+        />
+
+    <Button
+        android:id="@+id/sandbox"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/battle_royale"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/category_sandbox"
+        />
+
+    <Button
+        android:id="@+id/social"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/sandbox"
+        app:layout_constraintLeft_toRightOf="@id/sandbox"
+        android:text="@string/category_social"
+        />
+    <Button
+        android:id="@+id/strategy"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/sandbox"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/category_strategy"
+        />
+
+    <Button
+        android:id="@+id/mmotps"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/strategy"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/category_mmotps"
+        />
+
+    <Button
+        android:id="@+id/mmofps"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/mmotps"
+        app:layout_constraintLeft_toRightOf="@id/mmotps"
+        android:text="@string/category_mmofps"
+        />
+
+    <Button
+        android:id="@+id/racing"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/mmotps"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/category_racing"
+        />
+
+    <Button
+        android:id="@+id/sports"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/racing"
+        app:layout_constraintLeft_toRightOf="@id/racing"
+        android:text="@string/category_sports"
+        />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

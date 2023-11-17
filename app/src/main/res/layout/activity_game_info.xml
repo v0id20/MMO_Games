@@ -16,13 +16,29 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Game title here" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        android:indeterminate="true"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_marginTop="12dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_tv" />
+
+
 
     <TextView
         android:id="@+id/release_date_tv"
@@ -57,7 +73,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-
         app:layout_constraintLeft_toRightOf="@id/publisher_tv"
         app:layout_constraintTop_toTopOf="@id/publisher_tv"
         tools:text="issuer" />
@@ -71,14 +86,113 @@
         app:layout_constraintTop_toBottomOf="@id/publisher_tv"
         tools:text="description of the game" />
 
-    <TextView
-        android:id="@+id/processor_tv"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/requirements_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description_tv"
-        tools:text = "system requirements"/>
+        app:layout_constraintTop_toBottomOf="@id/description_tv">
+
+        <TextView
+            android:id="@+id/system_requirements_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/system_requirements" />
+
+        <TextView
+            android:id="@+id/os"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/os"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/system_requirements_tv" />
+
+        <TextView
+            android:id="@+id/os_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintLeft_toRightOf="@id/os"
+            app:layout_constraintTop_toBottomOf="@id/system_requirements_tv"
+            tools:text="Windows 11" />
+
+        <TextView
+            android:id="@+id/processor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/processor"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/os" />
+
+        <TextView
+            android:id="@+id/processor_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintLeft_toRightOf="@id/processor"
+            app:layout_constraintTop_toBottomOf="@id/os"
+            tools:text="processor" />
+
+        <TextView
+            android:id="@+id/memory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/memory"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/processor_tv" />
+
+        <TextView
+            android:id="@+id/memory_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintLeft_toRightOf="@id/memory"
+            app:layout_constraintTop_toBottomOf="@id/processor_tv"
+            tools:text="16GB RAM" />
+
+        <TextView
+            android:id="@+id/graphics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/graphics"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/memory_tv" />
+
+        <TextView
+            android:id="@+id/graphics_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintLeft_toRightOf="@id/graphics"
+            app:layout_constraintTop_toBottomOf="@id/memory_tv"
+            tools:text="NVIDIA" />
+
+        <TextView
+            android:id="@+id/storage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/storage"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/graphics_tv" />
+
+        <TextView
+            android:id="@+id/storage_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintLeft_toRightOf="@id/storage"
+            app:layout_constraintTop_toBottomOf="@id/graphics_tv"
+            tools:text="50GB" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -86,6 +200,6 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/processor_tv"/>
+        app:layout_constraintTop_toBottomOf="@+id/requirements_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
