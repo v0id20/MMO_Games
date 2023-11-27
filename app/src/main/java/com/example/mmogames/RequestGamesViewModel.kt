@@ -6,65 +6,90 @@ import androidx.lifecycle.ViewModel
 
 class RequestGamesViewModel : ViewModel() {
 
-    var requestBody: Array<String> = emptyArray()
+    private var requestBody: Array<String> = emptyArray()
     var liveData2: MutableLiveData<LoadingStatus<List<GameDto>>> =
         MutableLiveData<LoadingStatus<List<GameDto>>>(LoadingStatus.Loading<Nothing>())
-
-    var myService: MyService = MyService()
-
-    var filters: ArrayList<String> = arrayListOf()
+    private val myService: MyService = MyService()
+    private var filters: ArrayList<String> = arrayListOf()
     var filtersMap: MutableLiveData<MutableMap<Int, Boolean>>? = null
+    var platformsMap: MutableLiveData<MutableMap<Int, Boolean>>? = null
+    private var sortBy: String? = null
     fun requestGamesList() {
         myService.getGamesList(liveData2)
     }
 
+    fun filterAndSort() {
+        createFilterRequest()
+        if (sortBy != null) {
+            if (requestBody.isNotEmpty()) {
+                myService.filterAndSortGames(liveData2, sortBy!!, *requestBody)
+            } else {
+                Log.i("RequestGamesViewModel filterAndSort", "sortBy" + sortBy)
+                myService.sortGamesList(liveData2, sortBy!!)
+            }
+        } else if (requestBody.isNotEmpty()) {
+            myService.filterGamesList(liveData2, *requestBody)
+        } else {
+            myService.getGamesList(liveData2)
+        }
+    }
 
-    private fun createRequest() {
+    private fun createFilterRequest() {
         if (filters.size > 0) {
             requestBody = Array<String>(filters.size, { i: Int -> filters.get(i) })
-//            for (i in 0..filters.size - 1) {
-//                requestBody.get(i) = filters[i]
-//            }
         } else {
             requestBody = emptyArray()
         }
     }
 
-    fun setFilterMap(ar: MutableMap<Int, Boolean>) {
-        filtersMap = MutableLiveData<MutableMap<Int, Boolean>>(ar)
-
+    fun setFilterMap(ar: Array<Int>) {
+        filtersMap = MutableLiveData(ar.associateWith { it -> false } as MutableMap<Int, Boolean>)
     }
 
-    fun addFilter(filter: String) {
-        filters.add(filter)
+    private fun addFilter(filter: String) {
+        if (filter.contains(" ")) filters.add(filter.replace(" ", "-")) else filters.add(filter)
     }
 
-    fun updateFilterMap(i: Int, state: Boolean) {
+    private fun updateFilterMap(i: Int, state: Boolean) {
         filtersMap!!.value!!.set(i, state)
     }
 
-    fun removeFilter(filter: String) {
+    private fun removeFilter(filter: String) {
         if (filters.contains(filter)) {
             filters.remove(filter)
+        } else if (filter.contains(" ")) {
+            filters.remove(filter.replace(" ", "-"))
         }
     }
 
-    fun clearFilters() {
+    fun clearFilters(ar: Array<Int>) {
         filters.clear()
+        setFilterMap(ar)
         requestBody = emptyArray()
+        sortBy=null
     }
 
-    fun filter() {
-        createRequest()
-        Log.i("RequestGamesViewModel", "printing body: ")
-        for (i in requestBody) {
-            Log.i("body", i)
-        }
-        if (requestBody.isNotEmpty()) {
-            myService.filterGamesList(liveData2, *requestBody)
+
+    fun kek(id: Int, text: String): Int {
+//        if (filtersMap?.value?.contains(id) == true) {
+//
+//        } else if (platformsMap?.value?.contains(id)==true){
+//
+//        }
+
+        if (filtersMap?.value?.get(id) == false) {
+            addFilter(text)
+            updateFilterMap(id, true)
+            return R.color.black
         } else {
-            myService.getGamesList(liveData2)
+            updateFilterMap(id, false)
+            removeFilter(text)
+            return com.google.android.material.R.color.mtrl_btn_transparent_bg_color
         }
+    }
+
+    fun kek2(text: String){
+        sortBy = text.lowercase()
     }
 
 }

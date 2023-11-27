@@ -69,11 +69,12 @@ class GameInfoActivity : AppCompatActivity() {
                 gameScreenshotAdapter.notifyDataSetChanged()
             }
             if (game.minimum_system_requirements != null) {
-                Log.i("game requirements not null ", game.minimum_system_requirements.toString())
+                Log.i("GameInfoActivity","game requirements true=null false=not null: " + (game.minimum_system_requirements==null).toString())
                 Log.i(
                     "game requirements not null ",
                     game.minimum_system_requirements?.graphics.toString()
                 )
+              //  if (game.minimum_system_requirements?.processor!=null &&)
                 val requirementsLayout: ConstraintLayout = findViewById(R.id.requirements_layout)
                 requirementsLayout.visibility = View.VISIBLE
                 val processorTV: TextView = findViewById(R.id.processor_tv)

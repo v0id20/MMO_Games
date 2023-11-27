@@ -13,4 +13,14 @@ interface ApiEndpoint {
 
     @GET("games")
     fun getFiltered(@Query("category") vararg tag: String ): Call<List<GameDto>>?
+
+    @GET("games")
+    fun getFilteredByPlatform(@Query("platform") platform: String ): Call<List<GameDto>>?
+
+    @GET("games")
+    fun getSorted(@Query("sort-by")  sortBy: String ): Call<List<GameDto>>?
+
+    @GET("games")
+    fun getFilteredAndSorted(@Query("sort-by")  sortBy: String, @Query("category")  vararg tag: String ): Call<List<GameDto>>?
+
 }

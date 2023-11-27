@@ -42,12 +42,27 @@ class MyService() {
         call?.enqueue(callback)
     }
 
+    private fun getSortedGamesList(callback: Callback<List<GameDto>>, sortBy: String) {
+        val call: Call<List<GameDto>>? = myEndpoint.getSorted(sortBy)
+        call?.enqueue(callback)
+    }
+
+    private fun getFilteredAndSortedGamesList(
+        callback: Callback<List<GameDto>>,
+        sortBy: String,
+        vararg tag: String
+    ) {
+        val call: Call<List<GameDto>>? = myEndpoint.getFilteredAndSorted(sortBy, *tag)
+        call?.enqueue(callback)
+    }
+
     fun getGamesList(liveData: MutableLiveData<LoadingStatus<List<GameDto>>>) {
         val callback: Callback<List<GameDto>> = object : Callback<List<GameDto>> {
 
             override fun onResponse(call: Call<List<GameDto>>, response: Response<List<GameDto>>) {
                 if (response.isSuccessful) {
                     liveData.setValue(LoadingStatus.Success(response.body()))
+
                 } else {
                     liveData.setValue(LoadingStatus.Error<Nothing>("Response unsuccessful"))
                     Log.i("onResponse", "Response unsuccessful")
@@ -68,15 +83,15 @@ class MyService() {
 
                 if (response.isSuccessful) {
                     Log.i("Request game info", "success")
+                    Log.i(
+                        "onResponse, checking system requirements ",
+                        (response.body()?.minimum_system_requirements == null).toString()
+                    )
+                    Log.i(
+                        "onResponse, checking system requirements, graphics ", " " +
+                                response.body()?.minimum_system_requirements?.graphics
+                    )
                     liveData.value = response.body()
-                    Log.i(
-                        "onResponse, checking systerm requirements ",
-                        response.body()?.minimum_system_requirements.toString()
-                    )
-                    Log.i(
-                        "onResponse, checking systerm requirements, graphics ",
-                        response.body()?.minimum_system_requirements?.graphics.toString()
-                    )
                 } else {
 
                     Log.i("Request game info", "failure")
@@ -94,28 +109,41 @@ class MyService() {
         liveData: MutableLiveData<LoadingStatus<List<GameDto>>>,
         vararg tag: String
     ) {
-        var callback: Callback<List<GameDto>> = object : Callback<List<GameDto>> {
-            override fun onResponse(call: Call<List<GameDto>>, response: Response<List<GameDto>>) {
-                val fullUrl = response.raw().request().url().toString()
-                Log.i("onresponse", "Full URL: $fullUrl")
-
-                if (response.isSuccessful) {
-                    liveData.setValue(LoadingStatus.Success(response.body()))
-                    Log.i("onResponse", "success")
-                } else {
-                    liveData.setValue(LoadingStatus.Error<Nothing>("Response unsuccessful"))
-                    Log.i("onResponse", "Response unsuccessful")
-                }
-            }
-
-            override fun onFailure(call: Call<List<GameDto>>, t: Throwable) {
-                liveData.setValue(LoadingStatus.Error<Nothing>("Response unsuccessful"))
-                Log.e("this onFailure", "No response was received", t)
-            }
-        }
-
+        var callback: Callback<List<GameDto>> = ResponseLoader(liveData)
         getFilteredGamesList(callback, *tag)
     }
+
+
+    fun sortGamesList(liveData: MutableLiveData<LoadingStatus<List<GameDto>>>, sortBy: String) {
+        var callback: Callback<List<GameDto>> = ResponseLoader(liveData)
+        getSortedGamesList(callback, sortBy)
+    }
+
+    fun filterAndSortGames(
+        liveData: MutableLiveData<LoadingStatus<List<GameDto>>>,
+        sortBy: String,
+        vararg tag: String
+    ) {
+        var callback: Callback<List<GameDto>> = ResponseLoader(liveData)
+        getFilteredAndSortedGamesList(callback, sortBy, *tag)
+    }
+}
+
+class ResponseLoader(val liveData: MutableLiveData<LoadingStatus<List<GameDto>>>) :
+    Callback<List<GameDto>> {
+
+    override fun onResponse(call: Call<List<GameDto>>, response: Response<List<GameDto>>) {
+        if (response.isSuccessful) {
+            liveData.setValue(LoadingStatus.Success(response.body()))
+        } else {
+            liveData.setValue(LoadingStatus.Error<Nothing>("Response unsuccessful"))
+        }
+    }
+
+    override fun onFailure(call: Call<List<GameDto>>, t: Throwable) {
+        liveData.setValue(LoadingStatus.Error<Nothing>("Response unsuccessful"))
+    }
+
 }
 
 sealed class LoadingStatus<out T>() {

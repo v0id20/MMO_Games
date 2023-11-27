@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameItemClickListener {
         startActivity(i)
     }
 
-    private fun setLoadingState() {
+    fun setLoadingState() {
         recyclerView.visibility = View.INVISIBLE
         progressIndicator.visibility = View.VISIBLE
         errorTV.visibility = View.INVISIBLE

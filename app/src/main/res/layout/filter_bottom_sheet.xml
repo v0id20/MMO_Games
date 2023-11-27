@@ -1,177 +1,400 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/category_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/category"
-        android:padding="12dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="135dp">
 
-    <Button
-        android:id="@+id/mmorpg"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mmorpg"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/category_tv" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingEnd="32dp"
+            android:paddingStart="32dp">
 
-    <Button
-        android:id="@+id/action"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/category_action"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mmorpg" />
+            <TextView
+                android:id="@+id/category_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="@string/category"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/clear_filters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clear_filters"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/category_tv" />
 
-    <Button
-        android:id="@+id/action_rpg"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/action"
-        app:layout_constraintLeft_toRightOf="@id/action"
-        android:text="@string/category_action_rpg"
-        />
-    <Button
-        android:id="@+id/moba"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/mmorpg"
-        app:layout_constraintLeft_toRightOf="@id/mmorpg"
-        android:text="@string/category_moba"
-        />
+            <Button
+                android:id="@+id/mmorpg"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mmorpg"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clear_filters" />
 
-    <Button
-        android:id="@+id/shooter"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/action"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="@string/category_shooter"
-        />
+            <Button
+                android:id="@+id/action"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_action"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mmorpg" />
 
 
+            <Button
+                android:id="@+id/action_rpg"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_action_rpg"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/action" />
 
-    <Button
-        android:id="@+id/mmorts"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/strategy"
-        app:layout_constraintLeft_toRightOf="@id/strategy"
-        android:text="@string/category_mmorts"
-        />
+            <Button
+                android:id="@+id/moba"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_moba"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/mmorpg" />
 
-    <Button
-        android:id="@+id/survival"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/shooter"
-        app:layout_constraintLeft_toRightOf="@id/shooter"
-        android:text="@string/category_survival"
-        />
-
-    <Button
-        android:id="@+id/battle_royale"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/shooter"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="@string/category_battle_royale"
-        />
-    <Button
-        android:id="@+id/card"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/battle_royale"
-        app:layout_constraintLeft_toRightOf="@id/battle_royale"
-        android:text="@string/category_card"
-        />
-
-    <Button
-        android:id="@+id/sandbox"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/battle_royale"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="@string/category_sandbox"
-        />
-
-    <Button
-        android:id="@+id/social"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/sandbox"
-        app:layout_constraintLeft_toRightOf="@id/sandbox"
-        android:text="@string/category_social"
-        />
-    <Button
-        android:id="@+id/strategy"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/sandbox"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="@string/category_strategy"
-        />
-
-    <Button
-        android:id="@+id/mmotps"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/strategy"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="@string/category_mmotps"
-        />
-
-    <Button
-        android:id="@+id/mmofps"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/mmotps"
-        app:layout_constraintLeft_toRightOf="@id/mmotps"
-        android:text="@string/category_mmofps"
-        />
-
-    <Button
-        android:id="@+id/racing"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/mmotps"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="@string/category_racing"
-        />
-
-    <Button
-        android:id="@+id/sports"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/racing"
-        app:layout_constraintLeft_toRightOf="@id/racing"
-        android:text="@string/category_sports"
-        />
+            <Button
+                android:id="@+id/shooter"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_shooter"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/action" />
 
 
+            <Button
+                android:id="@+id/mmorts"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_mmorts"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/strategy" />
+
+            <Button
+                android:id="@+id/survival"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_survival"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/shooter" />
+
+            <Button
+                android:id="@+id/battle_royale"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_battle_royale"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shooter" />
+
+            <Button
+                android:id="@+id/card"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_card"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/battle_royale" />
+
+            <Button
+                android:id="@+id/sandbox"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_sandbox"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/battle_royale" />
+
+            <Button
+                android:id="@+id/social"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_social"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/sandbox" />
+
+            <Button
+                android:id="@+id/strategy"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_strategy"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sandbox" />
+
+            <Button
+                android:id="@+id/mmotps"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_mmotps"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/strategy" />
+
+            <Button
+                android:id="@+id/mmofps"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_mmofps"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/mmotps" />
+
+            <Button
+                android:id="@+id/racing"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_racing"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mmotps" />
+
+            <Button
+                android:id="@+id/sports"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_sports"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/racing" />
+
+            <TextView
+                android:id="@+id/platform_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/platform"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/racing" />
+
+            <Button
+                android:id="@+id/platform_pc"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PC"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/platform_tv" />
+
+            <Button
+                android:id="@+id/platform_browser"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Browser"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/platform_pc" />
+
+            <TextView
+                android:id="@+id/themes_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/themes"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/platform_pc" />
+
+            <Button
+                android:id="@+id/anime"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/anime"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/themes_tv" />
+
+            <Button
+                android:id="@+id/fantasy"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fantasy"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/anime" />
 
 
+            <Button
+                android:id="@+id/flight"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/flight"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/anime" />
+
+            <Button
+                android:id="@+id/horror"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/horror"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/flight" />
+
+
+            <Button
+                android:id="@+id/martial_arts"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/martial_arts"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/flight" />
+
+            <Button
+                android:id="@+id/military"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/military"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/martial_arts" />
+
+
+            <Button
+                android:id="@+id/sailing"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sailing"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/martial_arts" />
+
+            <Button
+                android:id="@+id/scifi"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sci Fi"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/sailing" />
+
+
+            <Button
+                android:id="@+id/space"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/space"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sailing" />
+
+            <Button
+                android:id="@+id/superhero"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/superhero"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/space" />
+
+            <Button
+                android:id="@+id/tank"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tank"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/space" />
+
+            <Button
+                android:id="@+id/zombie"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zombie"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/tank" />
+
+            <TextView
+                android:id="@+id/gameplay_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gameplay"
+                app:layout_constraintTop_toBottomOf="@id/tank"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <Button
+                android:id="@+id/turn_based"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/turn_based"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gameplay_tv" />
+
+            <Button
+                android:id="@+id/real_time"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/real_time"
+                app:layout_constraintLeft_toRightOf="@id/center"
+                app:layout_constraintTop_toTopOf="@id/turn_based" />
+            <TextView
+                android:id="@+id/sort_by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/real_time"
+                android:text="@string/sort_by"/>
+            <RadioGroup
+                android:id="@+id/sort_by_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/sort_by"
+                app:layout_constraintLeft_toLeftOf="parent">
+                <RadioButton
+                    android:id="@+id/sort_by_relevance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/relevance"/>
+                <RadioButton
+                    android:id="@+id/sort_by_popularity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/popularity"/>
+                <RadioButton
+                    android:id="@+id/sort_by_release_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/release_date"/>
+                <RadioButton
+                    android:id="@+id/sort_by_alphbetical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/alphabetical"/>
+            </RadioGroup>
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingRight="32dp"
+                app:layout_constraintGuide_percent="0.5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
