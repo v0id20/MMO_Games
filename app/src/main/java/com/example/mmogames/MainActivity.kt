@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameItemClickListener {
     private lateinit var errorTV: TextView
     private lateinit var errorIcon: ImageView
     private val gameAdapter: GameAdapter = GameAdapter(ArrayList<GameDto>(), this)
-    private lateinit var  viewModel: RequestGamesViewModel
+    private lateinit var viewModel: RequestGamesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,18 +39,16 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameItemClickListener {
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
         recyclerView.adapter = gameAdapter
-        viewModel=  ViewModelProvider(this)[com.example.mmogames.RequestGamesViewModel::class.java]
+        viewModel = ViewModelProvider(this)[com.example.mmogames.RequestGamesViewModel::class.java]
 
         val fabButton: FloatingActionButton = findViewById(R.id.filter_button)
-        fabButton.setOnClickListener( object : OnClickListener {
-                override fun onClick(v: View?) {
-                    //open filter fragment
-                    Log.i("ONCLICK INF FLOATING BUTTON", "why no work?")
-                    val filtersFragment: FilterBottomSheetFragment = FilterBottomSheetFragment()
-
-                    filtersFragment.show(getSupportFragmentManager(), "SOME STUPID TAG")
-                }
+        fabButton.setOnClickListener(object : OnClickListener {
+            override fun onClick(v: View?) {
+                //open filter fragment
+                val filtersFragment: FilterBottomSheetFragment = FilterBottomSheetFragment()
+                filtersFragment.show(getSupportFragmentManager(), "SOME STUPID TAG")
             }
+        }
         )
 
         viewModel.requestGamesList()
@@ -63,8 +61,6 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameItemClickListener {
                 }
             }
         })
-
-
     }
 
     override fun onGameItemClick(game: GameDto) {

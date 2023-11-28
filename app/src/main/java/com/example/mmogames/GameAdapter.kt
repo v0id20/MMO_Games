@@ -44,7 +44,6 @@ class GameAdapter(
             .into(holder.imageView)
     }
 
-
     interface OnGameItemClickListener {
         fun onGameItemClick(game: GameDto)
     }

@@ -50,7 +50,7 @@ class FilterBottomSheetFragment() : BottomSheetDialogFragment(), OnClickListener
             R.id.mmofps,
             R.id.mmorts,
             R.id.mmotps,
-            //  R.id.platform_pc, R.id.platform_browser,
+            R.id.platform_pc, R.id.platform_browser,
             R.id.anime,
             R.id.fantasy,
             R.id.flight,
@@ -65,45 +65,45 @@ class FilterBottomSheetFragment() : BottomSheetDialogFragment(), OnClickListener
             R.id.zombie,
             R.id.turn_based, R.id.real_time
         )
+        val ar: MutableMap<Int, String> = mutableMapOf()
         for (i: Int in idArray) {
+            ar.put(i, view.findViewById<Button>(i).text.toString())
             view.findViewById<Button>(i).setOnClickListener(this)
         }
 
-
-        (view.findViewById(R.id.clear_filters) as TextView).setOnClickListener({
-            viewModel.clearFilters(idArray)
+        view.findViewById<TextView>(R.id.clear_filters).setOnClickListener({
+            viewModel.clearFilters(ar)
             deselectFilters(view)
         })
 
-        var radioGroup: RadioGroup = view.findViewById(R.id.sort_by_radio_group)
+        val radioGroup: RadioGroup = view.findViewById(R.id.sort_by_radio_group)
         radioGroup.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
             override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
-                var sortBy: String = (view.findViewById(checkedId) as RadioButton).text.toString()
-                viewModel.kek2(sortBy)
+                val sortBy: String = (view.findViewById(checkedId) as RadioButton).text.toString()
+                viewModel.kek2(sortBy, checkedId)
             }
-
         })
         viewModel = ViewModelProvider(requireActivity()).get(RequestGamesViewModel::class.java)
-        if (viewModel.filtersMap != null) {
-            for (i in viewModel.filtersMap!!.value!!) {
-                if (i.value) {
-                    (view.findViewById(i.key) as Button).setBackgroundColor(resources.getColor(R.color.black))
-                }
+
+        if (viewModel.filterTypeList != null) {
+            viewModel.filterTypeList!!.forEach {if (it.status) view.findViewById<Button>(it.id).setBackgroundColor(resources.getColor(R.color.black))
             }
         } else {
-            viewModel.setFilterMap(idArray)
+            viewModel.setFilterMap(ar)
+        }
+        if (viewModel.sortBy!=null&& viewModel.checkedId!=null) {
+            (view.findViewById(viewModel.checkedId!!) as RadioButton).isChecked=true
         }
     }
 
     override fun onClick(v: View?) {
         val clicked = v as Button
-        val color = viewModel.kek(v.id, v.text.toString())
+        val color = viewModel.kek(v.id)
         clicked.setBackgroundColor(resources.getColor(color))
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        (activity as MainActivity).setLoadingState() //?
         viewModel.filterAndSort()
     }
 

@@ -1,37 +1,33 @@
 package com.example.mmogames
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+
+const val PLATFORM_ALL: String = "all"
+const val PLATFORM_PC: String = "PC"
+const val PLATFORM_BROWSER = "Broswer"
 
 class RequestGamesViewModel : ViewModel() {
 
     private var requestBody: Array<String> = emptyArray()
-    var liveData2: MutableLiveData<LoadingStatus<List<GameDto>>> =
+    val liveData2: MutableLiveData<LoadingStatus<List<GameDto>>> =
         MutableLiveData<LoadingStatus<List<GameDto>>>(LoadingStatus.Loading<Nothing>())
     private val myService: MyService = MyService()
     private var filters: ArrayList<String> = arrayListOf()
-    var filtersMap: MutableLiveData<MutableMap<Int, Boolean>>? = null
-    var platformsMap: MutableLiveData<MutableMap<Int, Boolean>>? = null
-    private var sortBy: String? = null
+    private var platforms: ArrayList<String> = arrayListOf()
+    private var plat: String? = null
+    var sortBy: String? = null
+    var checkedId: Int? = null
+    var filterTypeList: List<Filter>? = null
+
     fun requestGamesList() {
         myService.getGamesList(liveData2)
     }
 
     fun filterAndSort() {
+        liveData2.value = LoadingStatus.Loading<Nothing>()
         createFilterRequest()
-        if (sortBy != null) {
-            if (requestBody.isNotEmpty()) {
-                myService.filterAndSortGames(liveData2, sortBy!!, *requestBody)
-            } else {
-                Log.i("RequestGamesViewModel filterAndSort", "sortBy" + sortBy)
-                myService.sortGamesList(liveData2, sortBy!!)
-            }
-        } else if (requestBody.isNotEmpty()) {
-            myService.filterGamesList(liveData2, *requestBody)
-        } else {
-            myService.getGamesList(liveData2)
-        }
+        myService.ultimateFilter(liveData2, sortBy, plat, *requestBody)
     }
 
     private fun createFilterRequest() {
@@ -40,56 +36,75 @@ class RequestGamesViewModel : ViewModel() {
         } else {
             requestBody = emptyArray()
         }
-    }
-
-    fun setFilterMap(ar: Array<Int>) {
-        filtersMap = MutableLiveData(ar.associateWith { it -> false } as MutableMap<Int, Boolean>)
-    }
-
-    private fun addFilter(filter: String) {
-        if (filter.contains(" ")) filters.add(filter.replace(" ", "-")) else filters.add(filter)
-    }
-
-    private fun updateFilterMap(i: Int, state: Boolean) {
-        filtersMap!!.value!!.set(i, state)
-    }
-
-    private fun removeFilter(filter: String) {
-        if (filters.contains(filter)) {
-            filters.remove(filter)
-        } else if (filter.contains(" ")) {
-            filters.remove(filter.replace(" ", "-"))
+        if (platforms.size == 2) {
+            plat = PLATFORM_ALL
+        } else if (platforms.size > 0) {
+            plat = platforms.get(0).lowercase()
         }
     }
 
-    fun clearFilters(ar: Array<Int>) {
+    fun setFilterMap(ar: Map<Int, String>) {
+        filterTypeList = ar.map {
+            if (it.value.equals(PLATFORM_PC) || it.value.equals(PLATFORM_BROWSER)) Filter(
+                it.key,
+                it.value,
+                FilterType.PLATFORM,
+                false
+            ) else Filter(it.key, it.value, FilterType.CATEGORY, false)
+        }
+    }
+
+    private fun addFilter(platform: String, array: ArrayList<String>) {
+        if (platform.contains(" ")) array.add(platform.replace(" ", "-")) else array.add(platform)
+    }
+
+    private fun removeFilter(filter: String, ar: ArrayList<String>) {
+        if (ar.contains(filter)) {
+            ar.remove(filter)
+        } else if (filter.contains(" ")) {
+            ar.remove(filter.replace(" ", "-"))
+        }
+    }
+
+    fun clearFilters(ar: Map<Int, String>) {
         filters.clear()
         setFilterMap(ar)
         requestBody = emptyArray()
-        sortBy=null
+        sortBy = null
+        platforms.clear()
+        plat = null
     }
 
-
-    fun kek(id: Int, text: String): Int {
-//        if (filtersMap?.value?.contains(id) == true) {
-//
-//        } else if (platformsMap?.value?.contains(id)==true){
-//
-//        }
-
-        if (filtersMap?.value?.get(id) == false) {
-            addFilter(text)
-            updateFilterMap(id, true)
-            return R.color.black
+    fun kek(id: Int): Int {
+        val k: Filter? = filterTypeList?.find { it.id == id }
+        if (k != null) {
+            if (k.status) {
+                k.status = false
+                when (k.type) {
+                    FilterType.CATEGORY -> removeFilter(k.text, filters)
+                    FilterType.PLATFORM -> removeFilter(k.text, platforms)
+                }
+                return com.google.android.material.R.color.mtrl_btn_transparent_bg_color
+            } else {
+                k.status = true
+                when (k.type) {
+                    FilterType.CATEGORY -> addFilter(k.text, filters)
+                    FilterType.PLATFORM -> addFilter(k.text, platforms)
+                }
+                return R.color.black
+            }
         } else {
-            updateFilterMap(id, false)
-            removeFilter(text)
             return com.google.android.material.R.color.mtrl_btn_transparent_bg_color
         }
     }
 
-    fun kek2(text: String){
-        sortBy = text.lowercase()
+    fun kek2(text: String, checkedId: Int) {
+        if (text.contains(" ")) {
+            sortBy = text.replace(" ", "-").lowercase()
+        } else {
+            sortBy = text.lowercase()
+        }
+        this.checkedId = checkedId
     }
 
 }
