@@ -18,10 +18,14 @@ import com.example.mmogames.GAME_IMAGE_EXTRA
 import com.example.mmogames.GAME_TITLE_EXTRA
 import com.example.mmogames.GameDto
 import com.example.mmogames.R
+import com.example.mmogames.screenshotviewer.ScreenshotViewerActivity
 import com.squareup.picasso.Picasso
 
-class GameInfoActivity : AppCompatActivity() {
-    var gameScreenshotAdapter: GameScreenshotAdapter = GameScreenshotAdapter((ArrayList<String>()))
+const val SCREENSHOT_ARRAY_EXTRA: String = "screenshot array"
+
+class GameInfoActivity : AppCompatActivity(), OnScreenshotClickListener {
+    var gameScreenshotAdapter: GameScreenshotAdapter =
+        GameScreenshotAdapter((ArrayList<String>()), this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,12 +73,14 @@ class GameInfoActivity : AppCompatActivity() {
                 gameScreenshotAdapter.notifyDataSetChanged()
             }
             if (game.minimum_system_requirements != null) {
-                Log.i("GameInfoActivity","game requirements true=null false=not null: " + (game.minimum_system_requirements==null).toString())
+                Log.i(
+                    "GameInfoActivity",
+                    "game requirements true=null false=not null: " + (game.minimum_system_requirements == null).toString()
+                )
                 Log.i(
                     "game requirements not null ",
                     game.minimum_system_requirements?.graphics.toString()
                 )
-              //  if (game.minimum_system_requirements?.processor!=null &&)
                 val requirementsLayout: ConstraintLayout = findViewById(R.id.requirements_layout)
                 requirementsLayout.visibility = View.VISIBLE
                 val processorTV: TextView = findViewById(R.id.processor_tv)
@@ -91,7 +97,19 @@ class GameInfoActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setLoadingState() {
 
     }
+
+    override fun onScreenshotClick(screenshotArray: ArrayList<String>) {
+        Log.i("GameInfoActivity", "screenshotarray: " + screenshotArray?.size.toString())
+        val i: Intent = Intent(this, ScreenshotViewerActivity::class.java)
+        i.putStringArrayListExtra(SCREENSHOT_ARRAY_EXTRA, screenshotArray)
+        startActivity(i)
+    }
+}
+
+interface OnScreenshotClickListener {
+    fun onScreenshotClick(stringArray: ArrayList<String>)
 }

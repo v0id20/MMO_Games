@@ -25,6 +25,10 @@
             android:name=".gameinfo.GameInfoActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".screenshotviewer.ScreenshotViewerActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
